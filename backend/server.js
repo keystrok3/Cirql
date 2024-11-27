@@ -1,6 +1,7 @@
 require('dotenv').config({ path: './config.env' })
 
 const express = require('express')
+const { connect_to_db } = require('./dbconfig/db')
 
 // environment variables
 const PORT = process.env.PORT || 5515
@@ -16,6 +17,7 @@ app.use(express.json())
 
 
 const server = app.listen(PORT, () => {
+    connect_to_db()
     console.log(`Listening on: http://localhost:${PORT}`)
 })
 
