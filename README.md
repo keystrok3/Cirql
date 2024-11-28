@@ -46,7 +46,7 @@ A simple social media platform where users can:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/social-media-app.git
+   git clone https://github.com/keystrok3/Cirql.git
    cd social-media-app
    ```
 
