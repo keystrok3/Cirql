@@ -12,6 +12,9 @@ const app = express()
 // Middleware
 app.use(express.json())
 
+// route middleware
+app.use('/api/auth', require('./routes/auth'))
+
 
 
 
@@ -20,7 +23,6 @@ app.use(express.json())
 const server = app.listen(PORT, () => {
     connect_to_db()
     initialize_models()
-    
     console.log(`Listening on: http://localhost:${PORT}`)
 })
 
