@@ -3,6 +3,7 @@ require('dotenv').config({ path: './config.env' })
 const express = require('express')
 const { connect_to_db } = require('./dbconfig/db')
 const { initialize_models } = require('./models/init_models')
+const { errorHandler } = require('./middleware/error')
 
 // environment variables
 const PORT = process.env.PORT || 5515
@@ -15,7 +16,7 @@ app.use(express.json())
 // route middleware
 app.use('/api/auth', require('./routes/auth'))
 
-
+app.use(errorHandler)
 
 
 

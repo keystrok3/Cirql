@@ -1,5 +1,7 @@
 const User = require("../models/user")
+const ErrorResponse = require('../util/errorResponse')
 const { generate_token } = require('../util/generate_jwt')
+const { Op } = require("sequelize")
 const bcrypt = require('bcrypt')
 
 /** function to make request to add new user */ 
@@ -24,7 +26,7 @@ const register = async (req, res, next) => {
     } catch (error) {
         console.error('Could not register: ', error)
 
-        res.status(500).json({ success: false, msg: "Server Error" })
+        next(error)
     }
 }
 
@@ -36,16 +38,18 @@ const login = async (req, res, next) => {
     try {
         const isEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(username_or_email)
         
-        let user = undefined
-        if(isEmail) {
-            user = await User.findOne({ where: { email: username_or_email }})
-        } else {
-            user = await User.findOne({ where: { username: username_or_email }})
-        }
+        const user = await User.findOne({
+            where: {
+              [Op.or]: [
+                { email: username_or_email },
+                { username: username_or_email }
+              ]
+            }
+        })
 
         if(user === null) {
             console.log("user not found")
-            res.status(401).json({ success: false, msg: "Invalid credentials" })
+            return next(new ErrorResponse('Invalid Credentials', 401))
         }
 
         
@@ -54,7 +58,7 @@ const login = async (req, res, next) => {
 
         if(!isPassword) {
             console.log('isPassword is false')
-            res.status(401).json({ success: false, msg: "Invalid credentials" })
+            return next(new ErrorResponse('Invalid Credentials', 401))
         }
 
         const token = generate_token(user.username, '3h')
@@ -70,7 +74,7 @@ const login = async (req, res, next) => {
 
     } catch (error) {
         console.log(`\n LOGIN ERROR: ${error}`)
-        res.status(500).json({ success: false, msg: "Server Error" })
+        next(error)
     }
 } 
 

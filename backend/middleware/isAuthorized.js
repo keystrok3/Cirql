@@ -1,15 +1,23 @@
 const jwt = require('jsonwebtoken')
+const User = require('../models/user')
 
-const isAuthorized = (req, res, next) => {
+const isAuthorized = async (req, res, next) => {
 
     try {
         const token = res.cookie.token
 
         if(!token) {
-           return res.status(401).json({ success: false, msg: "Unauthorised" })
+            return next(new ErrorResponse("Not authorized to access this route", 401))
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
+
+
+        const user = await User.findOne({ where: { username: decoded.username}})
+
+        if(!user) {
+            return next(new ErrorResponse("No user found with this username", 404));
+        }
 
         req.username = { username: decoded.username }
 
