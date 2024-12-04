@@ -12,7 +12,7 @@ class Photo extends Model {
 
 
 Photo.init({
-    id : {
+    id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true

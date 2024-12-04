@@ -4,7 +4,7 @@ const User = require("./user");
 
 async function initialize_models() {
     try {        
-        await db_connection.sync()
+        await db_connection.sync({ force: true })
         console.log('Tables created')
     } catch (error) {
         console.error(`\nTable creation/connection error: \n ${error}`)
