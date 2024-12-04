@@ -5,7 +5,9 @@ const path = require('path')
 const storage = multer.diskStorage({
     // define destination directory
     destination: function(req, file, cb) {
-        cb(null, 'public/photouploads')
+        const type = req.params.type || 'general'
+        const uploadPath = `public/photouploads/${type}`
+        cb(null, uploadPath)
     },
 
     // define filename for uploaded files

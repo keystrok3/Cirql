@@ -1,4 +1,5 @@
 const { db_connection, connect_to_db } = require("../dbconfig/db");
+const Photo = require("./photo");
 const User = require("./user");
 
 async function initialize_models() {

@@ -17,6 +17,10 @@ Photo.init({
         primaryKey: true,
         autoIncrement: true
     },
+    photo_type: {
+        type: DataTypes.ENUM('profile', 'general'),
+        allowNull: false,
+    },
     filename: {
         type: DataTypes.STRING,
         allowNull: false
@@ -37,7 +41,7 @@ Photo.init({
     username: {
         type: DataTypes.STRING,
         references: {
-            model: 'User',
+            model: 'usertable',
             key: 'username'
         }
     }
