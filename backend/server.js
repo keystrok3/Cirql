@@ -13,9 +13,12 @@ const app = express()
 // Middleware
 app.use(express.json())
 // serveuploaded files statically
-app.use('/images', express.static('public/photouploads'))
+app.use('/photouploads/profile', express.static('public/photouploads/profile'))
+app.use('/photouploads/general', express.static('public/photouploads/general'))
 // route middleware
 app.use('/api/auth', require('./routes/auth'))
+app.use('/api/images', require('./routes/photo'))
+// error handler middleware
 app.use(errorHandler)
 
 

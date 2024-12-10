@@ -4,7 +4,7 @@ const User = require('../models/user')
 const isAuthorized = async (req, res, next) => {
 
     try {
-        const token = res.cookie.token
+        const token = req.cookies.token
 
         if(!token) {
             return next(new ErrorResponse("Not authorized to access this route", 401))
@@ -19,7 +19,7 @@ const isAuthorized = async (req, res, next) => {
             return next(new ErrorResponse("No user found with this username", 404));
         }
 
-        req.username = { username: decoded.username }
+        req.username = decoded.username
 
         next()
     } catch (error) {

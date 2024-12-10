@@ -67,7 +67,7 @@ const login = async (req, res, next) => {
             httpOnly: true, // prevent client-side access to cookie
             secure: false,
             sameSite: 'Strict',
-            maxAge: "10800000"
+            maxAge: 10800000
         })
 
         res.status(201).json({ success: true, user: { username: user.username, email: user.email }})
