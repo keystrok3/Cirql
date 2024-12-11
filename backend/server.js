@@ -1,5 +1,6 @@
 require('dotenv').config({ path: './config.env' })
 const cors = require('cors')
+const cookieParser = require('cookie-parser')
 const express = require('express')
 const { connect_to_db } = require('./dbconfig/db')
 const { initialize_models } = require('./models/init_models')
@@ -13,6 +14,7 @@ const app = express()
 // Middleware
 app.use(cors({ origin: "http://localhost:5173", credentials: true }))
 app.use(express.json())
+app.use(cookieParser())
 // serveuploaded files statically
 app.use('/photouploads/profile', express.static('public/photouploads/profile'))
 app.use('/photouploads/general', express.static('public/photouploads/general'))
