@@ -4,7 +4,8 @@ import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import ErrorAlert from './Alerts/ErrorAlert';
 
 
 
@@ -17,9 +18,9 @@ const SignUp = () => {
         lastName: "",
         password: ""
     })
-    const [ loading, setLoading ] = useState(false)
     const [ error, setError ] = useState(false)
-    
+    const [ errorMessage, setErrorMessage ] = useState("")
+ 
     const handleChangeField = (e) => {
 
         setSignUpData(prev => {
@@ -58,16 +59,19 @@ const SignUp = () => {
                 body: JSON.stringify(signUpData)
             })
 
+            const response_data = await response.json()
+
             if(!response.ok) {
                 console.log(response.statusText)
+                setError(true)
+                setErrorMessage(response_data.msg)
                 return
             }
             
-            const response_data = await response.json()
-
             console.log(response_data.msg)
         } catch (error) {
             setError(true)
+            setErrorMessage(error)
             console.log(error)
         }
     }
@@ -76,6 +80,12 @@ const SignUp = () => {
         <Stack spacing={1} alignItems={'center'}>
             <Box><h2>Sign Up</h2></Box>
             <Divider />
+            { error 
+                &&
+                <Box style={{ width: "80%", margin: "1em 0" }}>
+                    <ErrorAlert message={errorMessage} onError={setError}/>
+                </Box> 
+            }
             <TextField 
                 sx={{ width: "80%", margin: "1em 0" }} 
                 placeholder='Username'
