@@ -1,5 +1,5 @@
 require('dotenv').config({ path: './config.env' })
-
+const cors = require('cors')
 const express = require('express')
 const { connect_to_db } = require('./dbconfig/db')
 const { initialize_models } = require('./models/init_models')
@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 5515
 const app = express()
 
 // Middleware
+app.use(cors({ origin: "http://localhost:5173", credentials: true }))
 app.use(express.json())
 // serveuploaded files statically
 app.use('/photouploads/profile', express.static('public/photouploads/profile'))
