@@ -12,7 +12,7 @@ const errorHandler = (err, req, res, next) => {
         );
         break;
       case 'SequelizeUniqueConstraintError':
-        error = new ErrorResponse('Duplicate field value entered', 400);
+        error = new ErrorResponse(`This ${err.errors[0].path} is already in use`, 400);
         break;
       
     }

@@ -64,14 +64,14 @@ const SignUp = () => {
             if(!response.ok) {
                 console.log(response.statusText)
                 setError(true)
-                setErrorMessage(response_data.msg)
+                setErrorMessage(response_data.error.message)
                 return
             }
             
             console.log(response_data.msg)
         } catch (error) {
             setError(true)
-            setErrorMessage(error)
+            setErrorMessage(error.error.message)
             console.log(error)
         }
     }
