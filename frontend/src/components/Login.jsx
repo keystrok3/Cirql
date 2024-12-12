@@ -1,8 +1,7 @@
-import { Link } from "@mui/material"
 import Button from "@mui/material/Button"
 import Stack from '@mui/material/Stack'
 import TextField from "@mui/material/TextField"
-
+import Link from "./Link"
 
 const Login = () => {
 
@@ -32,7 +31,7 @@ const Login = () => {
             >Login</Button>
             <Stack style={{ margin: '1em' }} alignItems={'center'} spacing={2} direction='row'>
                 <p>Not signed up?</p>
-                <Link>SignUp</Link>
+                <Link toPath={'signup'}>SignUp</Link>
             </Stack>
         </Stack>
     )

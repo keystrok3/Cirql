@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button'
-import { useState } from 'react';
 import ErrorAlert from './Alerts/ErrorAlert';
+import { useState } from 'react';
+import Link from './Link';
 
 
 
@@ -132,7 +132,7 @@ const SignUp = () => {
             </Button>
             <Stack style={{ margin: '1em' }} alignItems={'center'} spacing={2} direction='row'>
                 <p>Already signed up?</p>
-                <Link>Login</Link>
+                <Link toPath={'login'}>Login</Link>
             </Stack>
         </Stack>
     )

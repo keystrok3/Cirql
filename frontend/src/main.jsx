@@ -1,16 +1,18 @@
-import { StrictMode } from 'react'
+import SignUpPage from './pages/SignUpPage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
 import { createRoot } from 'react-dom/client'
-import ThemeProvider from '@mui/material/styles/ThemeProvider'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { StrictMode } from 'react'
 import './index.css'
-import App from './App.jsx'
-import theme from './theme/theme.js'
-import { CssBaseline } from '@mui/material'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
+    <BrowserRouter>
+        <Routes>
+          <Route path='/' element={ <SignUpPage /> }/>
+          <Route path='/signup' element={ <SignUpPage /> }/>
+          <Route path='/login' element={ <LoginPage /> }/>
+        </Routes>
+    </BrowserRouter>
   </StrictMode>,
 )
