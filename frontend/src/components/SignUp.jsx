@@ -23,30 +23,9 @@ const SignUp = () => {
  
     const handleChangeField = (e) => {
 
-        setSignUpData(prev => {
-            let userData = { ...prev }
-            switch (e.target.name) {
-                case "username":
-                    userData = { ...prev, username: e.target.value }
-                    break;
-                case "email":
-                    userData = { ...prev, email: e.target.value }
-                    break
-                case "firstName":
-                    userData = { ...prev, firstName: e.target.value }
-                    break
-                case "lastName":
-                    userData = { ...prev, lastName: e.target.value }
-                    break
-                case "password":
-                    userData = { ...prev, password: e.target.value }
-                    break
-                default:
-                    break;
-            }
-
-            return { ...userData }
-        })
+        setSignUpData(prev => ({
+            ...prev, [e.target.name]: e.target.value
+        }))
     }
 
     const handleSubmit = async () => {        
