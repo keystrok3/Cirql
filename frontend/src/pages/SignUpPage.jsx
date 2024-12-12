@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import SignUp from '../components/SignUp';
 
-const Start = () => {
+const SignUpPage = () => {
 
 
     return (
@@ -20,4 +20,4 @@ const Start = () => {
 }
 
 
-export default Start
+export default SignUpPage
