@@ -31,7 +31,8 @@ const AuthProvider = ({ children }) => {
                 setErrorMessage(response_data.error.message)
                 return
             }
-            console.log(response_data)
+            console.log(response_data.user)
+            setUser({ ...response_data.user })
             setIsAuthenticated(true)
         } catch (error) {
             setError(true)
