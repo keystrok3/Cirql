@@ -6,6 +6,7 @@ import Button from '@mui/material/Button'
 import ErrorAlert from './Alerts/ErrorAlert';
 import { useState } from 'react';
 import Link from './Link';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -20,6 +21,7 @@ const SignUp = () => {
     })
     const [ error, setError ] = useState(false)
     const [ errorMessage, setErrorMessage ] = useState("")
+    const navigate = useNavigate()
  
     const handleChangeField = (e) => {
 
@@ -44,9 +46,10 @@ const SignUp = () => {
                 console.log(response.statusText)
                 setError(true)
                 setErrorMessage(response_data.error.message)
+                
                 return
             }
-            
+            navigate('/login')
             console.log(response_data.msg)
         } catch (error) {
             setError(true)
