@@ -6,10 +6,11 @@ import Link from "./Link"
 import { useContext, useState } from "react"
 import { AuthContext } from "../context/AuthContext"
 import ErrorAlert from "./Alerts/ErrorAlert"
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
     const { login, error, setError, errorMessage } = useContext(AuthContext)
-
+    const navigate = useNavigate()
     const [ loginData, setLoginData ] = useState({
         username_or_email: "", 
         password: ""
@@ -22,7 +23,12 @@ const Login = () => {
     }
 
     const handleSubmitLogin = async () => {
-        await login(loginData)
+        try {
+            await login(loginData)
+            navigate('/home')
+        } catch (error) {
+            //
+        }
     }
 
     return (

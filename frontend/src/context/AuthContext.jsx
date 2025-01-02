@@ -12,7 +12,6 @@ const AuthProvider = ({ children }) => {
     const [ errorMessage, setErrorMessage ] = useState("")
 
 
-
     const login = async (userdata) => {
         try {
             const response = await fetch('/api/auth/login', {
