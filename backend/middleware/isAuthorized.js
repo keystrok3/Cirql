@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
+const ErrorReponse = require('../util/errorResponse')
 
 const isAuthorized = async (req, res, next) => {
-
     try {
         const token = req.cookies.token
-
+        console.log(req.cookies)
         if(!token) {
-            return next(new ErrorResponse("Not authorized to access this route", 401))
+            return next(new ErrorReponse("Not authorized to access this route", 401))
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET)

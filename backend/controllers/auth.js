@@ -70,7 +70,6 @@ const login = async (req, res, next) => {
             sameSite: 'Strict',
             maxAge: 10800000
         })
-
         res.status(201).json({ success: true, user: { username: user.username, email: user.email }})
 
     } catch (error) {

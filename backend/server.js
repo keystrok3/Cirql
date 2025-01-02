@@ -21,6 +21,7 @@ app.use('/photouploads/general', express.static('public/photouploads/general'))
 // route middleware
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/images', require('./routes/photo'))
+app.use('/api/follow', require('./routes/following'))
 // error handler middleware
 app.use(errorHandler)
 
