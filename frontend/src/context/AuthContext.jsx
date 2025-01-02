@@ -6,8 +6,13 @@ export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
 
-    const [ user, setUser ] = useState(null)
-    const [ isAuthenticated, setIsAuthenticated ] = useState(false)
+    const [user, setUser] = useState(() => {
+        const savedUser = localStorage.getItem('user')
+        return savedUser ? JSON.parse(savedUser) : null
+    })
+    const [isAuthenticated, setIsAuthenticated] = useState(() => {
+        return localStorage.getItem('isAuthenticated') === 'true'
+    })
     const [ error, setError ] = useState(false)
     const [ errorMessage, setErrorMessage ] = useState("")
 
@@ -31,6 +36,8 @@ const AuthProvider = ({ children }) => {
                 return
             }
             console.log(response_data.user)
+            localStorage.setItem('user', JSON.stringify(response_data.user))
+            localStorage.setItem('isAuthenticated', 'true')
             setUser({ ...response_data.user })
             setIsAuthenticated(true)
         } catch (error) {
@@ -39,9 +46,25 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    const logout = async () => {
+        try {
+            const response = await fetch('/api/auth/logout', {
+                credentials: 'include'
+            })
+
+            if(!response.ok) {
+                setError('Not logged out')
+            }
+            localStorage.removeItem('isAuthenticated')
+            window.location.href = '/login'
+        } catch (error) {
+            setError(error)
+        }
+    }
+
     return (
         <AuthContext.Provider value={{
-            user, login, error, setError, isAuthenticated, errorMessage
+            user, login, error, setError, isAuthenticated, errorMessage, logout
         }}>{ children }</AuthContext.Provider>
     )
 }
